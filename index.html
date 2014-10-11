@@ -1,0 +1,57 @@
+<html>
+<head>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+  <style>
+    html,body,div{
+      margin: 0;
+      padding:0;
+    }
+    .page{
+      /*border:1px solid black;*/
+      /*position:relative;*/
+      width:96px;
+      height:169px;
+
+      background-color: white;
+      box-shadow: 0 0 4px #666;
+    }
+    #main{
+      margin:0;
+      background-color:#f8f8f8;
+      /*background-image:url(http://2.bp.blogspot.com/-gYCIhesGeFE/T8ZL6ndRLhI/AAAAAAAABF4/IUmKNIvG_bk/s1600/Rose+Leslie+-+Ygritte_b77731210b.jpg);*/
+      /*background-repeat:no-repeat;*/
+    }
+  </style>
+</head>
+<body>
+
+<div id="main" style="width:100%; height:100%;"></div>
+
+<script type="text/javascript">
+
+$(function(){
+
+  $("#main").on("dblclick",function(ev){
+    console.log(ev, $(ev.delegateTarget).position(), $(ev.target).position(), $(ev.target).offset());
+
+    var targetPos = $(ev.target).position();
+
+    // debugger
+    $("<div></div>")
+      .addClass("page")
+      .css({
+        position: 'absolute',
+        top: targetPos.top + ev.offsetY - 12,
+        left: targetPos.left + ev.offsetX - 12,
+      })
+      .draggable()
+      .appendTo("#main");
+  });
+
+});
+</script>
+</body>
+</html>
