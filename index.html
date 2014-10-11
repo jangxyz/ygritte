@@ -47,7 +47,7 @@ $(function(){
         top: targetPos.top + ev.offsetY - 12,
         left: targetPos.left + ev.offsetX - 12,
       })
-      .draggable()
+      .draggable({stack:".page"})
       .appendTo("#main");
   });
 
