@@ -31,6 +31,11 @@
       box-shadow: 0 0 4px #265079;
     }
 
+    .page-detail {
+      width:320px;
+      height:563px;
+    }
+
   </style>
 </head>
 <body>
@@ -41,13 +46,15 @@
 
 $(function(){
 
+  var pages = [];
+
   // add new page on double click
   $("#main").on("dblclick",function(ev) {
     console.log(ev, $(ev.delegateTarget).position(), $(ev.target).position(), $(ev.target).offset());
 
     var targetPos = $(ev.target).position();
 
-    $("<div></div>")
+    var $page = $("<div></div>")
       .addClass("page")
       .css({
         position: 'absolute',
@@ -56,13 +63,36 @@ $(function(){
       })
       .draggable()
       .appendTo("#main");
+
+     pages.push($page);
   });
 
   // go to page on click
   $("#main").on("click", ".page", function(ev) {
       ev.stopPropagation();
-      console.log('click.', ev);
-  })
+      console.log('click.', ev, this);
+
+      var $page = $(this);
+
+      // render page detail
+      var $main = $('#main');
+      $main.empty();
+      $page.addClass('page-detail')
+          .appendTo($main);
+
+      // re-assign events
+      $main
+          .off('dblclick')
+          .on('click', function(ev) {
+              // re-render all pages
+              $main.empty();
+              for(var i=0; i<pages.length; i++) {
+                  var $page = pages[i];
+                  $page.removeClass('page-detail');
+                  $page.appendTo($main);
+              }
+          });
+  });
 
 });
 </script>
