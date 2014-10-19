@@ -23,11 +23,11 @@
       height:169px;
 
       background-color: white;
-	  border: 1px solid #999;
+      border: 1px solid #999;
       box-shadow: 0 0 4px #666;
     }
     .page:hover {
-	  border: 1px solid rgb(65,131,196);
+      border: 1px solid rgb(65,131,196);
       box-shadow: 0 0 4px #265079;
     }
 
@@ -41,12 +41,12 @@
 
 $(function(){
 
-  $("#main").on("dblclick",function(ev){
+  // add new page on double click
+  $("#main").on("dblclick",function(ev) {
     console.log(ev, $(ev.delegateTarget).position(), $(ev.target).position(), $(ev.target).offset());
 
     var targetPos = $(ev.target).position();
 
-    // debugger
     $("<div></div>")
       .addClass("page")
       .css({
@@ -57,6 +57,12 @@ $(function(){
       .draggable()
       .appendTo("#main");
   });
+
+  // go to page on click
+  $("#main").on("click", ".page", function(ev) {
+      ev.stopPropagation();
+      console.log('click.', ev);
+  })
 
 });
 </script>
